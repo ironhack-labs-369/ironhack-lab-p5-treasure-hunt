@@ -1,12 +1,14 @@
 const game = new Game();
 
-function preload() {
-    game.preload();
-    // game.treasure.setRandomPosition();
-}
 function setup() {
     let canvas = createCanvas(WIDTH, HEIGHT);
     canvas.parent('canvas');
+}
+
+function preload() {
+    game.preload();
+
+    // game.treasure.setRandomPosition();
 }
 
 function draw() {
