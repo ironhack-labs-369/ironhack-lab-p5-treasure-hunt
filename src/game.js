@@ -1,17 +1,19 @@
 class Treasure {
     constructor() {
-        this.col = 500;
-        this.row = 400;
+        // this.col = 0;
+        // this.row = 0;
+        this.col = Math.floor((Math.random() * HEIGHT) / SQUARE_SIDE) * 100;
+        this.row = Math.floor((Math.random() * WIDTH) / SQUARE_SIDE) * 100;
         this.image;
     }
     draw() {
         image(this.image, this.row, this.col, 100, 100);
     }
-    setRandomPosition() {
-        this.col = Math.floor(Math.random() * 10) * 100;
-        this.row = Math.floor(Math.random() * 10) * 100;
-        console.log('Treasure Y / X', this.col, this.row);
-    }
+    // setRandomPosition() {
+    //     // this.col = Math.floor((Math.random() * HEIGHT) / SQUARE_SIDE) * 100;
+    //     // this.row = Math.floor((Math.random() * WIDTH) / SQUARE_SIDE) * 100;
+    //     console.log('Treasure Y / X', this.col, this.row);
+    // }
 }
 
 class Player {
@@ -22,19 +24,29 @@ class Player {
     }
     moveUp() {
         this.col -= 100;
+        this.checkForVictory();
     }
     moveDown() {
         this.col += 100;
+        this.checkForVictory();
     }
     moveLeft() {
         this.row -= 100;
+        this.checkForVictory();
     }
     moveRight() {
         this.row += 100;
+        this.checkForVictory();
     }
 
     draw() {
         image(this.image, this.row, this.col, 100, 100);
+    }
+    checkForVictory() {
+        if (this.col === game.treasure.col && this.row === game.treasure.row) {
+            console.log('you found the treasure');
+            alert('Congratulation!! You found the treasure!');
+        }
     }
 }
 
@@ -46,10 +58,12 @@ class Game {
     preload() {
         this.player.image = loadImage('../assets/character-down.png');
         this.treasure.image = loadImage('../assets/treasure.png');
-        this.treasure.setRandomPosition();
+        // this.treasure.setRandomPosition();
     }
     draw() {
         game.player.draw();
+        console.log('', this.player.col);
+        console.log('', this.treasure.col);
     }
     drawGrid() {
         for (let y = 100; y <= 1000; y += 100) {
